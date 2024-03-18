@@ -7,9 +7,7 @@ type Set[T comparable] struct {
 func New[T comparable](elems ...T) *Set[T] {
 	s := &Set[T]{}
 	s.itemMap = make(map[T]struct{})
-	for _, v := range elems {
-		s.Add(v)
-	}
+    s.Add(elems...)
 	return s
 }
 
@@ -27,8 +25,10 @@ func (s *Set[T]) Items() []T {
 	return keys
 }
 
-func (s *Set[T]) Add(elem T) {
-	s.itemMap[elem] = struct{}{}
+func (s *Set[T]) Add(elems ...T) {
+    for _, elem := range elems {
+	    s.itemMap[elem] = struct{}{}
+    }
 }
 
 func (s *Set[T]) Has(elem T) bool {
